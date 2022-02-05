@@ -105,7 +105,7 @@ jobs:
           name: ${{ steps.version_info.outputs.build_version }}
           artifacts: "release_output/*.tar.gz,release_output/*.zip"
           tag: ${{ steps.version_info.outputs.build_version }}
-          body: "For more informations about this release please check out the official [Changelog](https://github.com/Ryujinx/Ryujinx/wiki/Changelog)."
+          body: "你也可以在[阿里云盘](https://pan.yidaozhan.gq/ns_emu_helper/RyujinxCNBuilds/)下载。 [更新日志](https://github.com/Ryujinx/Ryujinx/wiki/Changelog)"
           allowUpdates: true
           removeArtifacts: true
           replacesArtifacts: true
