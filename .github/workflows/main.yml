@@ -82,7 +82,7 @@ jobs:
         if: ${{ env.CHECK_REPEATED }} = "No"
         run: |
           cd publish_windows
-          7z a ../release_output/ryujinx-${{ steps.version_info.outputs.build_version }}-win_x64.zip publish
+          7z a ../release_output/ryujinx-cn-${{ steps.version_info.outputs.build_version }}-win_x64.zip publish
           cd ..
         shell: bash
 
@@ -94,7 +94,7 @@ jobs:
         if: ${{ env.CHECK_REPEATED }} = "No"
         run: |
           cd publish_linux
-          tar -czvf ../release_output/ryujinx-${{ steps.version_info.outputs.build_version }}-linux_x64.tar.gz publish
+          tar -czvf ../release_output/ryujinx-cn-${{ steps.version_info.outputs.build_version }}-linux_x64.tar.gz publish
           cd ..
         shell: bash
 
@@ -118,5 +118,5 @@ jobs:
         env:
           refreshtoken: ${{secrets.REFRESH_TOKEN}}
         run: |
-          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./release_output/ryujinx-${{ env.VERSION }}-win_x64.zip NSEmuHelper/RyujinxCNBuilds
-          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./release_output/ryujinx-${{ env.VERSION }}-linux_x64.tar.gz NSEmuHelper/RyujinxCNBuilds
+          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./release_output/ryujinx-cn-${{ env.VERSION }}-win_x64.zip NSEmuHelper/RyujinxCNBuilds
+          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./release_output/ryujinx-cn-${{ env.VERSION }}-linux_x64.tar.gz NSEmuHelper/RyujinxCNBuilds
