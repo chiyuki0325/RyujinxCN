@@ -1,0 +1,50 @@
+# Maintainer: YidaozhanYa <yidaozhan_ya@outlook.com>
+pkgname=ryujinx-cn
+pkgver=1.1.16
+pkgrel=1
+pkgdesc="Experimental Nintendo Switch Emulator written in C#, with Chinese translation patch"
+arch=(x86_64)
+url="https://github.com/YidaozhanYa/RyujinxCN"
+license=('MIT')
+depends=('dotnet-runtime')
+makedepends=('git' 'dotnet-sdk')
+conflicts=('ryujinx-git' 'ryujinx-ldn-bin')
+provides=(Ryujinx)
+install=ryujinx.install
+source=(
+	"git+${url}"
+	"git+https://github.com/Ryujinx/Ryujinx"
+	"ryujinx.install"
+	"ryujinx.desktop"
+	"ryujinx.png")
+md5sums=(
+	'SKIP'
+	'SKIP'
+	'2a3637d0d4e7678473a9bd87f6acc8aa'
+	'b13915480a74358d5f89aed1ebfc5223'
+	'30138087aab7dcec30bdc4739617f000')
+options=(!strip)
+
+pkgver() {
+	cd "${srcdir}/Ryujinx"
+	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+	cd "${srcdir}/RyujinxCN"
+	python localization.py "${srcdir}/Ryujinx"
+	cd "${srcdir}/Ryujinx"
+	dotnet publish -c Release -r linux-x64 /p:DebugType=embedded
+}
+
+package() {
+	mkdir -p "${pkgdir}/opt/ryujinx/"
+	mkdir -p -m 777 "${pkgdir}/opt/ryujinx/Logs"
+	mkdir -p "${pkgdir}/usr/bin/"
+
+	install -D ryujinx.desktop "${pkgdir}/usr/share/applications/ryujinx.desktop"
+	install -D ryujinx.png "${pkgdir}/usr/share/icons/hicolor/256x256/apps/ryujinx.png"
+
+	cp -R ${srcdir}/Ryujinx/Ryujinx/bin/Release/net6.0/linux-x64/publish/* "${pkgdir}/opt/ryujinx/"
+	ln -s "/opt/ryujinx/Ryujinx" "${pkgdir}/usr/bin/ryujinx"
+}
