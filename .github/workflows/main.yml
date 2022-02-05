@@ -39,6 +39,7 @@ jobs:
           CHECK_REPEATED="Yes"
           fi
           echo "CHECK_REPEATED=${CHECK_REPEATED}" >> $GITHUB_ENV
+        shell: bash
       - uses: actions/setup-dotnet@v1
         if: ${{ env.CHECK_REPEATED }} = "No"
         with:
