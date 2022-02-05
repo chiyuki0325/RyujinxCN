@@ -8,11 +8,9 @@ on:
 
 jobs:
   release:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     env:
-      POWERSHELL_TELEMETRY_OPTOUT: 1
-      DOTNET_CLI_TELEMETRY_OPTOUT: 1
       RYUJINX_BASE_VERSION: "1.1"
       RYUJINX_TARGET_RELEASE_CHANNEL_NAME: "main"
       RYUJINX_TARGET_RELEASE_CHANNEL_OWNER: "YidaozhanYa"
@@ -28,7 +26,6 @@ jobs:
            VERSION=${VERSION// /};VERSION=${VERSION//\"/};VERSION=${VERSION//tag_name:/};VERSION=${VERSION//,/}
            echo "版本号为：${VERSION}"
            echo "VERSION=${VERSION}" >> $GITHUB_ENV
-        shell: bash
       - name: Check Duplicate
         env:
           refreshtoken: ${{ secrets.REFRESH_TOKEN }}
@@ -39,7 +36,6 @@ jobs:
           CHECK_REPEATED="Yes"
           fi
           echo "CHECK_REPEATED=${CHECK_REPEATED}" >> $GITHUB_ENV
-        shell: bash
       - uses: actions/setup-dotnet@v1
         if: ${{ env.CHECK_REPEATED }} = "No"
         with:
@@ -48,11 +44,11 @@ jobs:
         if: ${{ env.CHECK_REPEATED }} = "No"
         run: |
           git clone https://github.com/Ryujinx/Ryujinx
-          xcopy /s Ryujinx .
-          rmdir -r Ryujinx
+          cp -r Ryujinx/* .
+          rm -rf Ryujinx
           git clone https://github.com/YidaozhanYa/RyujinxCN
           cd RyujinxCN
-          python localization.windows.py "${{ github.workspace }}"
+          python localization.py "$(pwd)"
           cd ${{ github.workspace }}
       - name: Ensure NuGet Source
         if: ${{ env.CHECK_REPEATED }} = "No"
@@ -86,9 +82,9 @@ jobs:
       - name: Packing Windows builds
         if: ${{ env.CHECK_REPEATED }} = "No"
         run: |
-          pushd publish_windows
+          cd publish_windows
           7z a ../release_output/ryujinx-${{ steps.version_info.outputs.build_version }}-win_x64.zip publish
-          popd
+          cd ..
         shell: bash
 
       - name: Publish Linux
@@ -98,9 +94,9 @@ jobs:
       - name: Packing Linux builds
         if: ${{ env.CHECK_REPEATED }} = "No"
         run: |
-          pushd publish_linux
+          cd publish_linux
           tar -czvf ../release_output/ryujinx-${{ steps.version_info.outputs.build_version }}-linux_x64.tar.gz publish
-          popd
+          cd ..
         shell: bash
 
       - name: Pushing new release
