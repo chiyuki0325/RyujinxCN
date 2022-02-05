@@ -1,0 +1,4 @@
+{
+"An error occured while fetching information from the API.":"从 API 获取信息时发生错误",
+"Unable to connect to Amiibo API server. The service may be down or you may need to verify your internet connection is online.":"连接 Amiibo API 服务器时发生错误，可能是服务不可用或你的网络未连接。"
+}

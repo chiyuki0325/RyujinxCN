@@ -1,0 +1,15 @@
+{
+"Open User Save Directory":"打开用户存档文件夹",
+"Open Device Save Directory":"打开全局存档文件夹",
+"Open BCAT Save Directory":"打开 BCAT 数据文件夹",
+"Manage Title Updates":"管理游戏升级档",
+"Manage DLC":"管理游戏 DLC",
+"Manage Cheats":"管理金手指",
+"Open Mods Directory":"打开游戏 Mod 文件夹",
+"Extract Data":"解包数据",
+"Cache Management":"缓存相关",
+"Purge PPTC Cache":"删除 PPTC 缓存",
+"Purge Shader Cache":"删除着色器缓存",
+"Open PPTC Directory":"打开 PPTC 缓存文件夹",
+"Open Shader Cache Directory":"打开着色器缓存文件夹"
+}

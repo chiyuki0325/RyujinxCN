@@ -1,0 +1,15 @@
+{
+"There is no savedata for {titleName} [{titleId:x16}]":"{titleName} [{titleId:x16}] 还没有存档。",
+"Would you like to create savedata for this game?":"是否要给这个游戏新建存档？",
+"The selected game did not have a valid Title Id":"选择的游戏无效。",
+"Choose the folder to extract into":"选择要解包的路径",
+"Extract":"解包",
+"Cancel":"取消",
+"Ryujinx - NCA Section Extractor":"Ryujinx - NCA 解包工具",
+"Extracting {ncaSectionType} section from {System.IO.Path.GetFileName(_titleFilePath)}...":"正在从 {System.IO.Path.GetFileName(_titleFilePath)} 解包 {ncaSectionType} 区块 ...",
+"Extraction failure. The main NCA is not present in the selected file.":"解包失败，该游戏没有主 NCA。",
+"Extraction completed successfully.":"解包完成。",
+"Warning":"警告",
+"You are about to delete the PPTC cache for :\\n\\n<b>{_titleName}</b>\\n\\nAre you sure you want to proceed?":"将要删除游戏的 PPTC 缓存:\\n\\n<b>{_titleName}</b>\\n\\n真的要删除吗？",
+"You are about to delete the shader cache for :\\n\\n<b>{_titleName}</b>\\n\\nAre you sure you want to proceed?":"将要删除游戏的着色器缓存:\\n\\n<b>{_titleName}</b>\\n\\n真的要删除吗？"
+}

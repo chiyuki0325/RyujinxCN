@@ -1,0 +1,4 @@
+{
+"Installing firmware {firmwareVersion.VersionString}":"正在安装固件 {firmwareVersion.VersionString}",
+"System version {firmwareVersion.VersionString} successfully installed.":"{firmwareVersion.VersionString} 固件安装完毕。"
+}

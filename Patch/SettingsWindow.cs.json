@@ -1,0 +1,11 @@
+{
+"Warning - Backend Threading":"警告 - 后端多线程",
+"Ryujinx must be restarted after changing this option for it to apply fully. Depending on your platform, you may need to manually disable your driver's own multithreading when using Ryujinx's.":"Ryujinx 必须重启才能使这个更改完全生效。取决于你使用的操作系统，你可能同时需要手动更改显卡驱动的多线程设置。",
+"Volume: ":"音量:",
+"Choose the game directory to add to the list":"选择要添加到列表中的游戏目录",
+"Add":"添加",
+"Cancel":"取消",
+"Choose the theme to load":"选择要更换的 GTK 主题",
+"Select":"选择",
+"Theme Files":"GTK 主题"
+}

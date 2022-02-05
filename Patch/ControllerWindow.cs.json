@@ -1,0 +1,12 @@
+{
+"Ryujinx - Controller Settings - {_playerIndex}":"Ryujinx - 操作设置 - {_playerIndex}",
+"Handheld":"掌机",
+"Pro Controller":"Pro 手柄",
+"Joycon Pair":"成对 Joycon",
+"Joycon Left":"左侧 Joycon",
+"Joycon Right":"右侧 Joycon",
+"Disabled":"禁用",
+"Invalid data detected in one or more fields; the configuration was not saved.":"存在一个或多个无效设置，设置无法保存。",
+"Deleting Profile":"删除配置方案",
+"This action is irreversible, are you sure you want to continue?":"删除的配置方案不可恢复，确定要继续？"
+}

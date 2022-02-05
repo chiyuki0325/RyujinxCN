@@ -1,0 +1,11 @@
+{
+"DLC Available for {titleName} [{titleId.ToUpper()}]":"{titleName} [{titleId.ToUpper()}] 可用的 DLC",
+"Enabled":"启用",
+"TitleId":"游戏 ID",
+"Path":"路径",
+"Select DLC files":"选择 DLC 文件",
+"Add":"添加",
+"Cancel":"取消",
+"Switch Game DLCs":"Switch 游戏 DLC",
+"The specified file does not contain DLC for the selected title!":"你选择的文件不是该游戏的 DLC！"
+}

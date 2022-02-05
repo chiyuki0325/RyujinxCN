@@ -1,0 +1,10 @@
+{
+"Updates Available for {titleName} [{titleId.ToUpper()}]":"{titleName} [{titleId.ToUpper()}] 可用的升级档",
+"Version {controlData.DisplayVersion.ToString()} - {path}":"版本 {controlData.DisplayVersion.ToString()} - {path}",
+"The specified file does not contain an update for the selected title!":"你选择的文件不是该游戏的升级档！",
+"No Update":"无升级档",
+"Select update files":"选择升级档文件",
+"Add":"添加",
+"Cancel":"取消",
+"Switch Game Updates":"Switch 游戏升级档"
+}

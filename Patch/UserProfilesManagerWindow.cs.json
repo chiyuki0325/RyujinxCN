@@ -1,0 +1,17 @@
+{
+"Ryujinx {Program.Version} - Manage User Profiles":"Ryujinx {Program.Version} - 用户管理",
+"Choose the Profile Name":"选择用户名",
+"Please Enter a Profile Name":"请输入用户名",
+"Delete User Profile":"删除用户",
+"Are you sure you want to delete the profile ?":"真的要删除这个用户吗？",
+"Deleting this profile will also delete all associated save data.":"这个用户的所有游戏存档将会被一并删除。",
+"Import Custom Profile Image":"使用自定义头像",
+"Import":"导入",
+"Cancel":"取消",
+"Custom Profile Images":"自定义头像",
+"Import Image File":"使用自定义头像",
+"Select Firmware Avatar":"使用自带头像",
+"Profile Image Selection":"选择头像",
+"Choose a Profile Image":"选择一个用户头像。",
+"You may import a custom profile image, or select an avatar from the system firmware.":"你可以导入自定义头像，或者直接使用 NS 自带的头像。"
+}
