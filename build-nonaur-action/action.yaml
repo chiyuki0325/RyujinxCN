@@ -1,0 +1,39 @@
+name: Makepkg Build and Check
+author: Eric Langlois
+description: Build and check a PKGBUILD package
+branding:
+  color: blue
+  icon: chevron-up
+inputs:
+  pkgdir:
+    description: "Relative path to directory containing the PKGBUILD file."
+    required: false
+    default: "."
+  aurDeps:
+    description: "Support AUR dependencies if nonempty."
+    required: false
+    default: ""
+  namcapDisable:
+    description: "Disable namcap checks if nonempty."
+    required: false
+    default: ""
+  namcapRules:
+    description: "A comma-separated list of rules for namcap to run."
+    required: false
+    default: ""
+  namcapExcludeRules:
+    description: "A comma-separated list of rules for namcap not to run."
+    required: false
+    default: ""
+  makepkgArgs:
+    description: "Additional arguments to pass to makepkg."
+    required: false
+    default: ""
+outputs:
+  pkgfile0:
+    description: "Filename of the first generated package archive. Usually only one."
+  pkgfile1:
+    description: "Filename of the 2nd generated package archive, etc."
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
