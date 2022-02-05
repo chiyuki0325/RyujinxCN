@@ -19,7 +19,9 @@
 "/Ryujinx/Ui/Applet/GtkHostUiHandler.cs",
 "/Ryujinx/Ui/Applet/SwkbdAppletDialog.cs",
 "/Ryujinx/Ui/Helper/SetupValidator.cs",
+"/Ryujinx/Ui/Helper/SortHelper.cs",
 "/Ryujinx/Ui/App/ApplicationMetadata.cs",
+"/Ryujinx/Ui/App/ApplicationLibrary.cs",
 "/Ryujinx/Ui/Widgets/GameTableContextMenu.cs",
 "/Ryujinx/Ui/Widgets/GameTableContextMenu.Designer.cs",
 "/Ryujinx/Ui/Widgets/GtkDialog.cs",
@@ -28,5 +30,8 @@
 "/Ryujinx/Ui/Widgets/ProfileDialog.glade",
 "/Ryujinx/Ui/Widgets/UserErrorDialog.cs",
 "/Ryujinx/Ui/MainWindow.cs",
-"/Ryujinx/Ui/MainWindow.glade"
+"/Ryujinx/Ui/MainWindow.glade",
+"/Ryujinx/Modules/Updater/UpdateDialog.cs",
+"/Ryujinx/Modules/Updater/UpdateDialog.glade",
+"/Ryujinx/Modules/Updater/Updater.cs",
 ]}
