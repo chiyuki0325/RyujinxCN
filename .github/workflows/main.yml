@@ -3,11 +3,11 @@ name: Release job
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0/12 * * *'
+    - cron: '0 0 * * *'
 
 
 jobs:
-  release:
+  BuildRelease:
     runs-on: ubuntu-latest
 
     env:
@@ -119,4 +119,30 @@ jobs:
           refreshtoken: ${{secrets.REFRESH_TOKEN}}
         run: |
           aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./release_output/ryujinx-cn-${{ env.VERSION }}-win_x64.zip NSEmuHelper/RyujinxCNBuilds
-          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./release_output/ryujinx-cn-${{ env.VERSION }}-linux_x64.tar.gz NSEmuHelper/RyujinxCNBuilds
+          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./release_output/ryujinx-cn-${{ env.VERSION }}-linux_x64.tar.gz NSEmuHelper/RyujinxCNBuilds      
+  buildArchLinux:
+    strategy:
+      matrix:
+        PKGBUILDs: [ryujinx-cn]
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get Latest Version
+        run: |
+           VERSION=$(curl https://api.github.com/repos/Ryujinx/release-channel-master/releases/latest | grep "tag_name" | head -1)
+           VERSION=${VERSION// /};VERSION=${VERSION//\"/};VERSION=${VERSION//tag_name:/};VERSION=${VERSION//,/}
+           echo "版本号为：${VERSION}"
+           echo "VERSION=${VERSION}" >> $GITHUB_ENV
+      - name: Build Non-AUR packages
+        id: makepkg
+        uses: ./build-nonaur-action
+        with:
+          pkgdir: ${{ matrix.PKGBUILDs }}
+          aurDeps: true
+      - uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          artifacts: ./*/*.pkg.tar.zst
+          tag: ${{ env.VERSION }}
+          token: ${{ secrets.RELEASE_TOKEN }}
