@@ -2,8 +2,8 @@
 Version=1.0
 Type=Application
 Name=Ryujinx
-GenericName=Nintendo Switch Emulator
-Comment=Experimental Nintendo Switch Emulator written in C#
+GenericName=任天堂 Switch 模拟器
+Comment=使用 C# 编写的实验性任天堂 Switch 模拟器
 Icon=ryujinx
 TryExec=ryujinx
 Exec=env GDK_BACKEND=x11 ryujinx %f
