@@ -33,7 +33,7 @@ jobs:
         env:
           refreshtoken: ${{ secrets.REFRESH_TOKEN }}
         run: |
-          BUILDS_LIST=$(aliyunpan-cli -t ${refreshtoken} ls NSEmuHelper/RyujinxCNBuilds)
+          BUILDS_LIST=$(aliyunpan-cli -t ${{ env.refreshtoken }} ls NSEmuHelper/RyujinxCNBuilds)
           CHECK_REPEATED="No"
           if [[ "${BUILDS_LIST}" =~ ${{ env.VERSION }} ]]; then
           CHECK_REPEATED="Yes"
@@ -123,5 +123,5 @@ jobs:
         env:
           refreshtoken: ${{secrets.REFRESH_TOKEN}}
         run: |
-          aliyunpan-cli -t ${refreshtoken} upload -f ./release_output/ryujinx-${{ env.VERSION }}-win_x64.zip NSEmuHelper/RyujinxCNBuilds
-          aliyunpan-cli -t ${refreshtoken} upload -f ./release_output/ryujinx-${{ env.VERSION }}-linux_x64.tar.gs NSEmuHelper/RyujinxCNBuilds
+          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./release_output/ryujinx-${{ env.VERSION }}-win_x64.zip NSEmuHelper/RyujinxCNBuilds
+          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./release_output/ryujinx-${{ env.VERSION }}-linux_x64.tar.gs NSEmuHelper/RyujinxCNBuilds
