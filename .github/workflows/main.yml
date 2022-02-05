@@ -7,34 +7,6 @@ on:
 
 
 jobs:
-
-  buildArchLinux:
-    strategy:
-      matrix:
-        PKGBUILDs: [ryujinx-cn]
-      fail-fast: false
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Get Latest Version
-        run: |
-           VERSION=$(curl https://api.github.com/repos/Ryujinx/release-channel-master/releases/latest | grep "tag_name" | head -1)
-           VERSION=${VERSION// /};VERSION=${VERSION//\"/};VERSION=${VERSION//tag_name:/};VERSION=${VERSION//,/}
-           echo "版本号为：${VERSION}"
-           echo "VERSION=${VERSION}" >> $GITHUB_ENV
-      - name: Build Non-AUR packages
-        id: makepkg
-        uses: ./build-nonaur-action
-        with:
-          pkgdir: ${{ matrix.PKGBUILDs }}
-          aurDeps: true
-      - uses: ncipollo/release-action@v1
-        with:
-          allowUpdates: true
-          artifacts: ./*/*.pkg.tar.zst
-          tag: archlinux
-          token: ${{ secrets.RELEASE_TOKEN }}
-
   BuildRelease:
     runs-on: ubuntu-latest
 
