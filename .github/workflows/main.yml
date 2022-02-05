@@ -119,4 +119,4 @@ jobs:
           refreshtoken: ${{secrets.REFRESH_TOKEN}}
         run: |
           aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./release_output/ryujinx-${{ env.VERSION }}-win_x64.zip NSEmuHelper/RyujinxCNBuilds
-          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./release_output/ryujinx-${{ env.VERSION }}-linux_x64.tar.gs NSEmuHelper/RyujinxCNBuilds
+          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./release_output/ryujinx-${{ env.VERSION }}-linux_x64.tar.gz NSEmuHelper/RyujinxCNBuilds
