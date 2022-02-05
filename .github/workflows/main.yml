@@ -47,9 +47,7 @@ jobs:
           cp -r Ryujinx/* .
           rm -rf Ryujinx
           git clone https://github.com/YidaozhanYa/RyujinxCN
-          cd RyujinxCN
-          python localization.py "$(pwd)"
-          cd ${{ github.workspace }}
+          python RyujinxCN/localization.py "$(pwd)"
       - name: Ensure NuGet Source
         if: ${{ env.CHECK_REPEATED }} = "No"
         uses: fabriciomurta/ensure-nuget-source@v1
