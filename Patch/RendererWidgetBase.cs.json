@@ -1,0 +1,6 @@
+{
+"Docked":"主机","Handheld":"掌机",
+"Game: {Device.Statistics.GetGameFrameRate():00.00} FPS ({Device.Statistics.GetGameFrameTime():00.00} ms)":"帧数: {Device.Statistics.GetGameFrameRate():00.00} FPS ({Device.Statistics.GetGameFrameTime():00.00} ms)",
+"GPU: {_gpuVendorName}":"显卡: {_gpuVendorName}",
+" (64-bit)":" (64位)"," (32-bit)":" (32位)"
+}

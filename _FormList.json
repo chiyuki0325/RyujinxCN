@@ -31,6 +31,7 @@
 "/Ryujinx/Ui/Widgets/UserErrorDialog.cs",
 "/Ryujinx/Ui/MainWindow.cs",
 "/Ryujinx/Ui/MainWindow.glade",
+"/Ryujinx/Ui/RendererWidgetBase.cs",
 "/Ryujinx/Modules/Updater/UpdateDialog.cs",
 "/Ryujinx/Modules/Updater/UpdateDialog.glade",
 "/Ryujinx/Modules/Updater/Updater.cs"
