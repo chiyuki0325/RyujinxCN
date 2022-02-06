@@ -1,0 +1,121 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+  schedule:
+    - cron: '0 0 * * *'
+
+
+jobs:
+  BuildRelease:
+    runs-on: ubuntu-latest
+    env:
+      RYUJINX_BASE_VERSION: "1.1"
+      RYUJINX_TARGET_RELEASE_CHANNEL_NAME: "main"
+      RYUJINX_TARGET_RELEASE_CHANNEL_OWNER: "YidaozhanYa"
+      RYUJINX_TARGET_RELEASE_CHANNEL_REPO: "RyujinxCN"
+    steps:
+      - uses: actions/setup-python@v2.3.2
+      - name: Install Aliyundrive CLI
+        run: pip install aliyunpan
+      - name: Get Latest Version
+        run: |
+           VERSION=$(curl https://api.github.com/repos/Ryujinx/release-channel-master/releases/latest | grep "tag_name" | head -1)
+           VERSION=${VERSION// /};VERSION=${VERSION//\"/};VERSION=${VERSION//tag_name:/};VERSION=${VERSION//,/}
+           echo "版本号为：${VERSION}"
+           echo "VERSION=${VERSION}" >> $GITHUB_ENV
+      - name: Check Duplicate
+        env:
+          refreshtoken: ${{ secrets.REFRESH_TOKEN }}
+        run: |
+          BUILDS_LIST=$(aliyunpan-cli -t ${{ env.refreshtoken }} ls NSEmuHelper/RyujinxCNBuilds)
+          CHECK_REPEATED="No"
+          if [[ "${BUILDS_LIST}" =~ ${{ env.VERSION }} ]]; then
+          CHECK_REPEATED="Yes"
+          fi
+          echo "CHECK_REPEATED=${CHECK_REPEATED}" >> $GITHUB_ENV
+      - uses: actions/setup-dotnet@v1
+        if: ${{ env.CHECK_REPEATED }} = "No"
+        with:
+          dotnet-version: 6.0.x
+      - name: Download Ryujinx Source Code & Patch
+        if: ${{ env.CHECK_REPEATED }} = "No"
+        run: |
+          git clone https://github.com/Ryujinx/Ryujinx RyujinxSource
+          cp -r RyujinxSource/* .
+          rm -rf RyujinxSource
+          git clone https://github.com/YidaozhanYa/RyujinxCN
+          ls
+          python RyujinxCN/localization.py "$(pwd)"
+      - name: Ensure NuGet Source
+        if: ${{ env.CHECK_REPEATED }} = "No"
+        uses: fabriciomurta/ensure-nuget-source@v1
+      - name: Clear
+        if: ${{ env.CHECK_REPEATED }} = "No"
+        run: dotnet clean && dotnet nuget locals all --clear
+      - name: Get version info
+        if: ${{ env.CHECK_REPEATED }} = "No"
+        id: version_info
+        run: |
+          echo "::set-output name=build_version::${{ env.VERSION }}"
+          echo "::set-output name=git_short_hash::$(git rev-parse --short "${{ github.sha }}")"
+        shell: bash
+      - name: Configure for release
+        if: ${{ env.CHECK_REPEATED }} = "No"
+        run: |
+          sed -r --in-place 's/\%\%RYUJINX_BUILD_VERSION\%\%/${{ steps.version_info.outputs.build_version }}/g;' Ryujinx.Common/ReleaseInformations.cs
+          sed -r --in-place 's/\%\%RYUJINX_BUILD_GIT_HASH\%\%/${{ steps.version_info.outputs.git_short_hash }}/g;' Ryujinx.Common/ReleaseInformations.cs
+          sed -r --in-place 's/\%\%RYUJINX_TARGET_RELEASE_CHANNEL_NAME\%\%/${{ env.RYUJINX_TARGET_RELEASE_CHANNEL_NAME }}/g;' Ryujinx.Common/ReleaseInformations.cs
+          sed -r --in-place 's/\%\%RYUJINX_TARGET_RELEASE_CHANNEL_OWNER\%\%/${{ env.RYUJINX_TARGET_RELEASE_CHANNEL_OWNER }}/g;' Ryujinx.Common/ReleaseInformations.cs
+          sed -r --in-place 's/\%\%RYUJINX_TARGET_RELEASE_CHANNEL_REPO\%\%/${{ env.RYUJINX_TARGET_RELEASE_CHANNEL_REPO }}/g;' Ryujinx.Common/ReleaseInformations.cs
+        shell: bash
+      - name: Create output dir
+        if: ${{ env.CHECK_REPEATED }} = "No"
+        run: "mkdir release_output"
+      - name: Publish Windows
+        if: ${{ env.CHECK_REPEATED }} = "No"
+        run: |
+          dotnet publish -c Release -r win-x64 -o ./publish_windows/publish /p:Version="${{ steps.version_info.outputs.build_version }}" /p:SourceRevisionId="${{ steps.version_info.outputs.git_short_hash }}" /p:DebugType=embedded Ryujinx --self-contained
+      - name: Packing Windows builds
+        if: ${{ env.CHECK_REPEATED }} = "No"
+        run: |
+          cd publish_windows
+          7z a ../release_output/ryujinx-cn-${{ steps.version_info.outputs.build_version }}-win_x64.zip publish
+          cd ..
+        shell: bash
+
+      - name: Publish Linux
+        if: ${{ env.CHECK_REPEATED }} = "No"
+        run: |
+          dotnet publish -c Release -r linux-x64 -o ./publish_linux/publish /p:Version="${{ steps.version_info.outputs.build_version }}" /p:SourceRevisionId="${{ steps.version_info.outputs.git_short_hash }}" /p:DebugType=embedded Ryujinx --self-contained
+      - name: Packing Linux builds
+        if: ${{ env.CHECK_REPEATED }} = "No"
+        run: |
+          cd publish_linux
+          tar -czvf ../release_output/ryujinx-cn-${{ steps.version_info.outputs.build_version }}-linux_x64.tar.gz publish
+          cd ..
+        shell: bash
+
+      - name: Pushing new release
+        if: ${{ env.CHECK_REPEATED }} = "No"
+        uses: ncipollo/release-action@v1
+        with:
+          name: ${{ steps.version_info.outputs.build_version }}
+          artifacts: "release_output/*.tar.gz,release_output/*.zip"
+          tag: ${{ steps.version_info.outputs.build_version }}
+          body: "你也可以在[阿里云盘](https://pan.yidaozhan.gq/ns_emu_helper/RyujinxCNBuilds/)下载。 [更新日志](https://github.com/Ryujinx/Ryujinx/wiki/Changelog)"
+          allowUpdates: true
+          removeArtifacts: true
+          replacesArtifacts: true
+          owner: ${{ env.RYUJINX_TARGET_RELEASE_CHANNEL_OWNER }}
+          repo: ${{ env.RYUJINX_TARGET_RELEASE_CHANNEL_REPO }}
+          token: ${{ secrets.RELEASE_TOKEN }} 
+          
+      - name: Upload to Aliyundrive
+        if: ${{ env.CHECK_REPEATED }} = "No"
+        env:
+          refreshtoken: ${{secrets.REFRESH_TOKEN}}
+        run: |
+          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./release_output/ryujinx-cn-${{ env.VERSION }}-win_x64.zip NSEmuHelper/RyujinxCNBuilds
+          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./release_output/ryujinx-cn-${{ env.VERSION }}-linux_x64.tar.gz NSEmuHelper/RyujinxCNBuilds      
