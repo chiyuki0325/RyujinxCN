@@ -2,5 +2,6 @@
 "{seconds}s":"{seconds}秒",
 "{Math.Round(seconds / secondsPerMinute, 2, MidpointRounding.AwayFromZero)} mins":"{Math.Round(seconds / secondsPerMinute, 2, MidpointRounding.AwayFromZero)} 分钟",
 "{Math.Round(seconds / secondsPerHour, 2, MidpointRounding.AwayFromZero)} hrs":"{Math.Round(seconds / secondsPerHour, 2, MidpointRounding.AwayFromZero)} 小时",
-"{Math.Round(seconds / secondsPerDay, 2, MidpointRounding.AwayFromZero)} days":"{Math.Round(seconds / secondsPerDay, 2, MidpointRounding.AwayFromZero)} 天"
+"{Math.Round(seconds / secondsPerDay, 2, MidpointRounding.AwayFromZero)} days":"{Math.Round(seconds / secondsPerDay, 2, MidpointRounding.AwayFromZero)} 天",
+"Never":"没玩过"
 }
