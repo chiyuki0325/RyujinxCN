@@ -9,13 +9,11 @@ on:
 jobs:
   BuildRelease:
     runs-on: ubuntu-latest
-
     env:
       RYUJINX_BASE_VERSION: "1.1"
       RYUJINX_TARGET_RELEASE_CHANNEL_NAME: "main"
       RYUJINX_TARGET_RELEASE_CHANNEL_OWNER: "YidaozhanYa"
       RYUJINX_TARGET_RELEASE_CHANNEL_REPO: "RyujinxCN"
-
     steps:
       - uses: actions/setup-python@v2.3.2
       - name: Install Aliyundrive CLI
