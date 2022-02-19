@@ -74,5 +74,6 @@
 "Fs Global Access Log Mode:":"全局文件访问日志模式",
 "Developer Options (WARNING: Will reduce performance)":"开发者选项 (会降低性能！！)",
 "OpenGL Log Level":"OpenGL 日志级别",
-"Enable Debug Logs":"启用调试日志"
+"Enable Debug Logs":"启用调试日志",
+"Enable Trace Logs":"启用实时追踪日志"
 }
