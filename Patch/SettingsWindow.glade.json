@@ -48,12 +48,14 @@
 "Software":"软件 (慢)",
 "Host (fast)":"硬件 (快)",
 "Host unchecked (fastest, unsafe)":"硬件 忽略检查 (最快但不稳定)",
-"Hacks":"破解",
+"Hacks":"修复",
+"Auto":"自动",
 " - These may cause instability":" - 可能导致不稳定",
 "Expand DRAM size to 6GB":"扩展模拟内存大小到 6GB",
 "Ignore Missing Services":"忽略缺失的系统服务",
 "Features":"功能",
-"Graphics Backend Multithreading:":"图形后端多线程:",
+"Graphics Backend Multithreading:":"图形渲染器多线程:",
+"Graphics Backend:":"图形渲染器:",
 "Enhancements":"优化",
 "Enable Shader Cache":"启用着色器缓存",
 "Anisotropic Filtering:":"各向异性过滤:",
@@ -75,5 +77,10 @@
 "Developer Options (WARNING: Will reduce performance)":"开发者选项 (会降低性能！！)",
 "OpenGL Log Level":"OpenGL 日志级别",
 "Enable Debug Logs":"启用调试日志",
-"Enable Trace Logs":"启用实时追踪日志"
+"Enable Trace Logs":"启用实时追踪日志",
+"Graphics Backend Log Level":"图形渲染器日志级别",
+"None":"无",
+"Error":"错误",
+"Slowdowns":"卡慢",
+"All":"全部"
 }

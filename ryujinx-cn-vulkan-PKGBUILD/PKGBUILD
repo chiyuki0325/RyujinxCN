@@ -30,7 +30,7 @@ pkgver() {
     pkgver=$(curl -H "Authorization: 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" "https://api.github.com/repos/Ryujinx/release-channel-master/releases/latest" | jq -r .tag_name)
     echo $pkgver
     short_hash=$(git rev-parse --short "$(git log -n1 --format=format:"%H")")
-    sed -r --in-place "s/\%\%RYUJINX_BUILD_VERSION\%\%/${pkgver}/g;" "${srcdir}/Ryujinx/Ryujinx.Common/ReleaseInformations.cs"
+    sed -r --in-place "s/\%\%RYUJINX_BUILD_VERSION\%\%/${pkgver}-vulkan/g;" "${srcdir}/Ryujinx/Ryujinx.Common/ReleaseInformations.cs"
     sed -r --in-place "s/\%\%RYUJINX_BUILD_GIT_HASH\%\%/${short_hash}/g;" "${srcdir}/Ryujinx/Ryujinx.Common/ReleaseInformations.cs"
     sed -r --in-place "s/\%\%RYUJINX_TARGET_RELEASE_CHANNEL_NAME\%\%/main/g;" "${srcdir}/Ryujinx/Ryujinx.Common/ReleaseInformations.cs"
     sed -r --in-place "s/\%\%RYUJINX_TARGET_RELEASE_CHANNEL_OWNER\%\%/YidaozhanYa/g;" "${srcdir}/Ryujinx/Ryujinx.Common/ReleaseInformations.cs"

@@ -66,7 +66,7 @@ jobs:
       - name: Configure for release
         if: ${{ env.CHECK_REPEATED }} = "No"
         run: |
-          sed -r --in-place 's/\%\%RYUJINX_BUILD_VERSION\%\%/${{ steps.version_info.outputs.build_version }}/g;' Ryujinx.Common/ReleaseInformations.cs
+          sed -r --in-place 's/\%\%RYUJINX_BUILD_VERSION\%\%/${{ steps.version_info.outputs.build_version }}-vulkan/g;' Ryujinx.Common/ReleaseInformations.cs
           sed -r --in-place 's/\%\%RYUJINX_BUILD_GIT_HASH\%\%/${{ steps.version_info.outputs.git_short_hash }}/g;' Ryujinx.Common/ReleaseInformations.cs
           sed -r --in-place 's/\%\%RYUJINX_TARGET_RELEASE_CHANNEL_NAME\%\%/${{ env.RYUJINX_TARGET_RELEASE_CHANNEL_NAME }}/g;' Ryujinx.Common/ReleaseInformations.cs
           sed -r --in-place 's/\%\%RYUJINX_TARGET_RELEASE_CHANNEL_OWNER\%\%/${{ env.RYUJINX_TARGET_RELEASE_CHANNEL_OWNER }}/g;' Ryujinx.Common/ReleaseInformations.cs
