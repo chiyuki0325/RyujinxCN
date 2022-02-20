@@ -119,5 +119,5 @@ jobs:
         env:
           refreshtoken: ${{secrets.REFRESH_TOKEN}}
         run: |
-          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./release_output/ryujinx-cn-vulkan-${{ env.VERSION }}-win_x64.zip NSEmuHelper/RyujinxCNBuilds
-          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./release_output/ryujinx-cn-vulkan-${{ env.VERSION }}-linux_x64.tar.gz NSEmuHelper/RyujinxCNBuilds      
+          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./release_output/ryujinx-cn-vulkan-${{ env.VERSION }}-win_x64.zip NSEmuHelper/RyujinxCNVulkanBuilds
+          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./release_output/ryujinx-cn-vulkan-${{ env.VERSION }}-linux_x64.tar.gz NSEmuHelper/RyujinxCNVulkanBuilds      
