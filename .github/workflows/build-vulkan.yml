@@ -108,8 +108,8 @@ jobs:
           tag: ${{ steps.version_info.outputs.build_version }}
           body: "你也可以在[阿里云盘](https://pan.yidaozhan.gq/ns_emu_helper/RyujinxCNBuilds/)下载。 [更新日志](https://github.com/Ryujinx/Ryujinx/wiki/Changelog)"
           allowUpdates: true
-          removeArtifacts: true
-          replacesArtifacts: true
+          removeArtifacts: false
+          replacesArtifacts: false
           owner: ${{ env.RYUJINX_TARGET_RELEASE_CHANNEL_OWNER }}
           repo: ${{ env.RYUJINX_TARGET_RELEASE_CHANNEL_REPO }}
           token: ${{ secrets.RELEASE_TOKEN }} 
