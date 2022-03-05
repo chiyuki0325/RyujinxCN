@@ -31,7 +31,7 @@ jobs:
         env:
           refreshtoken: ${{ secrets.REFRESH_TOKEN }}
         run: |
-          BUILDS_LIST=$(aliyunpan-cli -t ${{ env.refreshtoken }} ls NSEmuHelper/RyujinxCNBuilds)
+          BUILDS_LIST=$(aliyunpan-cli -t ${{ env.refreshtoken }} ls NSEmuHelper/RyujinxCNVulkanBuilds)
           CHECK_REPEATED="No"
           if [[ "${BUILDS_LIST}" =~ ${{ env.VERSION }} ]]; then
           CHECK_REPEATED="Yes"
