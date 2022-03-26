@@ -79,8 +79,7 @@ jobs:
         if: ${{ env.CHECK_REPEATED }} = "No"
         run: |
           mkdir release_output
-          cd release_output
-          echo "${{ env.VERSION }} >>" "exported_variables.txt"
+          echo "${{ env.VERSION }} >>" "exported_variable.txt"
       - name: 编译 Windows 版
         if: ${{ env.CHECK_REPEATED }} = "No"
         run: |
@@ -110,7 +109,7 @@ jobs:
           path: |
             release_output/ryujinx-cn-${{ steps.version_info.outputs.build_version }}-linux_x64.tar.gz
             release_output/ryujinx-cn-${{ steps.version_info.outputs.build_version }}-win_x64.zip
-            release_output/exported_variables.txt
+            exported_variable.txt
           retention-days: 1
 
   PublishRelease:
@@ -126,7 +125,9 @@ jobs:
           name: built-ryujinx
       - name: 导入环境变量
         run: |
-          echo "VERSION=$(cat built-ryujinx/exported_variables.txt)" >> $GITHUB_ENV
+          ls
+          ls built-ryujinx
+          echo "VERSION=$(cat built-ryujinx/exported_variable.txt)" >> $GITHUB_ENV
           echo "导入的版本号为：${{ env.VERSION }}"
         shell: bash
       - name: 给 Windows 版添加图标
