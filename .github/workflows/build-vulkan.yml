@@ -114,7 +114,7 @@ jobs:
           name: built-ryujinx-vulkan
       - name: 导入环境变量
         run: |
-          echo "VERSION=$(cat exported_variables.txt)" >> $GITHUB_ENV
+          echo "VERSION=$(cat built-ryujinx-vulkan/exported_variables.txt)" >> $GITHUB_ENV
           echo "导入的版本号为：${{ env.VERSION }}"
         shell: bash
       - name: 给 Windows 版添加图标
@@ -122,9 +122,9 @@ jobs:
           Invoke-WebRequest -Uri "https://raw.githubusercontent.com/YidaozhanYa/RyujinxCN/main/Windows/RCEDIT64.exe" -OutFile .\RCEDIT64.exe
           Invoke-WebRequest -Uri "https://raw.githubusercontent.com/YidaozhanYa/RyujinxCN/main/Windows/Ryujinx.ico" -OutFile .\Ryujinx.ico
           mkdir publish
-          7z e .\ryujinx-cn-vulkan-${{ env.VERSION }}-win_x64.zip -opublish publish\Ryujinx.exe
+          7z e .\built-ryujinx-vulkan\ryujinx-cn-vulkan-${{ env.VERSION }}-win_x64.zip -opublish publish\Ryujinx.exe
           .\RCEDIT64.exe /I pubilsh\Ryujinx.exe Ryujinx.ico
-          7z a .\ryujinx-cn-vulkan-${{ env.VERSION }}-win_x64.zip publish\Ryujinx.exe
+          7z a .\built-ryujinx-vulkan\ryujinx-cn-vulkan-${{ env.VERSION }}-win_x64.zip publish\Ryujinx.exe
           rm RCEDIT64.exe
           rm Ryujinx.ico
       - name: 上传发行版
@@ -132,7 +132,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           name: ${{ env.VERSION }}
-          artifacts: "*.zip"
+          artifacts: "built-ryujinx-vulkan/*.zip"
           tag: ${{ env.VERSION }}
           body: "你也可以在[阿里云盘](https://pan.yidaozhan.ga/ns_emu_helper/RyujinxCNBuilds/)下载。 [查看更新日志](https://github.com/Ryujinx/Ryujinx/wiki/Changelog)"
           allowUpdates: true
@@ -146,5 +146,5 @@ jobs:
         env:
           refreshtoken: ${{secrets.REFRESH_TOKEN}}
         run: |
-          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./ryujinx-cn-vulkan-${{ env.VERSION }}-win_x64.zip NSEmuHelper/RyujinxCNVulkanBuilds
+          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./built-ryujinx-vulkan/ryujinx-cn-vulkan-${{ env.VERSION }}-win_x64.zip NSEmuHelper/RyujinxCNVulkanBuilds
         shell: bash
