@@ -1,0 +1,48 @@
+name: Test
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '**.json'
+  schedule:
+    - cron: '0 0/12 * * *'
+
+
+jobs:
+  TestRelease:
+    runs-on: windows-latest
+    env:
+      RYUJINX_BASE_VERSION: "1.1"
+      RYUJINX_TARGET_RELEASE_CHANNEL_NAME: "main"
+      RYUJINX_TARGET_RELEASE_CHANNEL_OWNER: "YidaozhanYa"
+      RYUJINX_TARGET_RELEASE_CHANNEL_REPO: "RyujinxCN"
+    steps:
+      - uses: actions/setup-python@v2.3.2
+      - name: Install Aliyundrive CLI
+        run: pip install aliyunpan
+      - name: Get Latest Version
+        run: |
+           VERSION=$(curl https://api.github.com/repos/Ryujinx/release-channel-master/releases/latest | grep "tag_name" | head -1)
+           VERSION=${VERSION// /};VERSION=${VERSION//\"/};VERSION=${VERSION//tag_name:/};VERSION=${VERSION//,/}
+           echo "版本号为：${VERSION}"
+           echo "VERSION=${VERSION}" >> $GITHUB_ENV
+        shell: bash
+      - name: Download Ryujinx Source Code & Patch
+        run: |
+          git clone https://github.com/Ryujinx/Ryujinx RyujinxSource
+          cp -r RyujinxSource/* .
+          rm -rf RyujinxSource
+          git clone https://github.com/YidaozhanYa/RyujinxCN
+          ls
+          python RyujinxCN/localization.windows.py "$(pwd)"
+          7z a PatchedSourceCode.7z .
+        shell: bash
+
+      - name: Upload to Aliyundrive
+        if: ${{ env.CHECK_REPEATED }} = "No"
+        env:
+          refreshtoken: ${{secrets.REFRESH_TOKEN}}
+        run: |
+          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./PatchedSourceCode.7z NSEmuHelper/Test.7z
+        shell: bash
