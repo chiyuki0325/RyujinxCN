@@ -38,5 +38,5 @@ jobs:
         env:
           refreshtoken: ${{secrets.REFRESH_TOKEN}}
         run: |
-          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./PatchedSourceCode.7z NSEmuHelper/Test.7z
+          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./PatchedSourceCode.7z NSEmuHelper
         shell: bash
