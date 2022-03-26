@@ -115,6 +115,9 @@ jobs:
       RYUJINX_TARGET_RELEASE_CHANNEL_OWNER: "YidaozhanYa"
       RYUJINX_TARGET_RELEASE_CHANNEL_REPO: "RyujinxCN"
     steps:
+      - uses: actions/setup-python@v2.3.2
+      - name: 安装阿里云盘 CLI
+        run: pip install aliyunpan
       - name: 下载工件
         uses: actions/download-artifact@v3
         with:
