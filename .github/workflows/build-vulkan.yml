@@ -80,7 +80,7 @@ jobs:
         run: |
           mkdir release_output
           cd release_output
-          echo "${{ env.VERSION }} >> "exported_variable.txt"
+          echo "${{ env.VERSION }}" >> "exported_variable.txt"
       - name: 编译 Windows 版
         if: ${{ env.CHECK_REPEATED }} = "No"
         run: |
