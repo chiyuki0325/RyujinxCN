@@ -1,12 +1,6 @@
 name: Test
 
-on:
-  workflow_dispatch:
-  push:
-    paths:
-      - '**.json'
-  schedule:
-    - cron: '0 0/12 * * *'
+on: workflow_dispatch
 
 
 jobs:
