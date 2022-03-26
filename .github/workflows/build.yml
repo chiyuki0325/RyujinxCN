@@ -131,8 +131,8 @@ jobs:
         shell: bash
       - name: 给 Windows 版添加图标
         run: |
-          wget "https://raw.githubusercontent.com/YidaozhanYa/RyujinxCN/main/Windows/RCEDIT64.exe"
-          wget "https://raw.githubusercontent.com/YidaozhanYa/RyujinxCN/main/Windows/Ryujinx.ico"
+          Invoke-WebRequest -Uri "https://raw.githubusercontent.com/YidaozhanYa/RyujinxCN/main/Windows/RCEDIT64.exe" -OutFile .\RCEDIT64.exe
+          Invoke-WebRequest -Uri "https://raw.githubusercontent.com/YidaozhanYa/RyujinxCN/main/Windows/Ryujinx.ico" -OutFile .\Ryujinx.ico
           mkdir publish
           7z e .\ryujinx-cn-${{ env.VERSION }}-win_x64.zip -opublish publish\Ryujinx.exe
           .\RCEDIT64.exe /I pubilsh\Ryujinx.exe Ryujinx.ico
