@@ -51,7 +51,7 @@ jobs:
           rm -rf RyujinxSource
           git clone https://github.com/YidaozhanYa/RyujinxCN
           ls
-          python RyujinxCN/localization.py "$(pwd)"
+          python RyujinxCN/localization.windows.py "$(pwd)"
         shell: bash
       - name: Ensure NuGet Source
         if: ${{ env.CHECK_REPEATED }} = "No"
