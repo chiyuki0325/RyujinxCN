@@ -11,7 +11,7 @@ on:
 
 jobs:
   BuildRelease:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     env:
       RYUJINX_BASE_VERSION: "1.1"
       RYUJINX_TARGET_RELEASE_CHANNEL_NAME: "main"
@@ -19,16 +19,16 @@ jobs:
       RYUJINX_TARGET_RELEASE_CHANNEL_REPO: "RyujinxCN"
     steps:
       - uses: actions/setup-python@v2.3.2
-      - name: Install Aliyundrive CLI
+      - name: 安装阿里云盘 CLI
         run: pip install aliyunpan
-      - name: Get Latest Version
+      - name: 获取最新版本号
         run: |
            VERSION=$(curl https://api.github.com/repos/Ryujinx/release-channel-master/releases/latest | grep "tag_name" | head -1)
            VERSION=${VERSION// /};VERSION=${VERSION//\"/};VERSION=${VERSION//tag_name:/};VERSION=${VERSION//,/}
            echo "版本号为：${VERSION}"
            echo "VERSION=${VERSION}" >> $GITHUB_ENV
         shell: bash
-      - name: Check Duplicate
+      - name: 查重
         env:
           refreshtoken: ${{ secrets.REFRESH_TOKEN }}
         run: |
@@ -43,7 +43,7 @@ jobs:
         if: ${{ env.CHECK_REPEATED }} = "No"
         with:
           dotnet-version: 6.0.x
-      - name: Download Ryujinx Source Code & Patch
+      - name: 下载 Ryujinx 源码并打补丁
         if: ${{ env.CHECK_REPEATED }} = "No"
         run: |
           git clone https://github.com/Ryujinx/Ryujinx RyujinxSource
@@ -51,22 +51,22 @@ jobs:
           rm -rf RyujinxSource
           git clone https://github.com/YidaozhanYa/RyujinxCN
           ls
-          python RyujinxCN/localization.windows.py "$(pwd)"
+          python RyujinxCN/localization.py "$(pwd)"
         shell: bash
-      - name: Ensure NuGet Source
+      - name: 编译之 Ensure NuGet Source
         if: ${{ env.CHECK_REPEATED }} = "No"
         uses: fabriciomurta/ensure-nuget-source@v1
-      - name: Clear
+      - name: 编译之 Clear
         if: ${{ env.CHECK_REPEATED }} = "No"
         run: dotnet clean && dotnet nuget locals all --clear
-      - name: Get version info
+      - name: 编译之 Get version info
         if: ${{ env.CHECK_REPEATED }} = "No"
         id: version_info
         run: |
           echo "::set-output name=build_version::${{ env.VERSION }}"
           echo "::set-output name=git_short_hash::$(git rev-parse --short "${{ github.sha }}")"
         shell: bash
-      - name: Configure for release
+      - name: 编译之 Configure for release
         if: ${{ env.CHECK_REPEATED }} = "No"
         run: |
           sed -r --in-place 's/\%\%RYUJINX_BUILD_VERSION\%\%/${{ steps.version_info.outputs.build_version }}/g;' Ryujinx.Common/ReleaseInformations.cs
@@ -75,53 +75,79 @@ jobs:
           sed -r --in-place 's/\%\%RYUJINX_TARGET_RELEASE_CHANNEL_OWNER\%\%/${{ env.RYUJINX_TARGET_RELEASE_CHANNEL_OWNER }}/g;' Ryujinx.Common/ReleaseInformations.cs
           sed -r --in-place 's/\%\%RYUJINX_TARGET_RELEASE_CHANNEL_REPO\%\%/${{ env.RYUJINX_TARGET_RELEASE_CHANNEL_REPO }}/g;' Ryujinx.Common/ReleaseInformations.cs
         shell: bash
-      - name: Create output dir
+      - name: 创建编译成品文件夹并导出环境变量
         if: ${{ env.CHECK_REPEATED }} = "No"
-        run: "mkdir release_output"
-      - name: Publish Windows
+        run: |
+          mkdir release_output
+          cd release_output
+          echo "${{ env.VERSION }} >>" "exported_variables.txt"
+      - name: 编译 Windows 版
         if: ${{ env.CHECK_REPEATED }} = "No"
         run: |
           dotnet publish -c Release -r win-x64 -o ./publish_windows/publish /p:Version="${{ steps.version_info.outputs.build_version }}" /p:SourceRevisionId="${{ steps.version_info.outputs.git_short_hash }}" /p:DebugType=embedded Ryujinx --self-contained
-      - name: Packing Windows builds
+      - name: 打包 Windows 版
         if: ${{ env.CHECK_REPEATED }} = "No"
         run: |
           cd publish_windows
           7z a ../release_output/ryujinx-cn-${{ steps.version_info.outputs.build_version }}-win_x64.zip publish
           cd ..
         shell: bash
-
-      - name: Publish Linux
+      - name: 编译 Linux 版
         if: ${{ env.CHECK_REPEATED }} = "No"
         run: |
           dotnet publish -c Release -r linux-x64 -o ./publish_linux/publish /p:Version="${{ steps.version_info.outputs.build_version }}" /p:SourceRevisionId="${{ steps.version_info.outputs.git_short_hash }}" /p:DebugType=embedded Ryujinx --self-contained
-      - name: Packing Linux builds
+      - name: 打包 Linux 版
         if: ${{ env.CHECK_REPEATED }} = "No"
         run: |
           cd publish_linux
           tar -czvf ../release_output/ryujinx-cn-${{ steps.version_info.outputs.build_version }}-linux_x64.tar.gz publish
           cd ..
         shell: bash
+      - name: 上传工件以供添加图标
+        uses: actions/upload-artifact@v3
+        with:
+          name: built-ryujinx
+          path: |
+            release_output/ryujinx-cn-${{ steps.version_info.outputs.build_version }}-linux_x64.tar.gz
+            release_output/ryujinx-cn-${{ steps.version_info.outputs.build_version }}-win_x64.zip
+            release_output/exported_variables.txt
+          retention-days: 1
 
-      - name: Pushing new release
+  PublishRelease:
+    needs: BuildRelease
+    runs-on: windows-latest
+    env:
+      RYUJINX_TARGET_RELEASE_CHANNEL_OWNER: "YidaozhanYa"
+      RYUJINX_TARGET_RELEASE_CHANNEL_REPO: "RyujinxCN"
+    steps:
+      - name: 下载工件
+        uses: actions/download-artifact@v3
+        with:
+          name: built-ryujinx
+      - name: 导入环境变量
+        run: |
+          echo "VERSION=$(cat exported_variables.txt)" >> $GITHUB_ENV
+          echo "导入的版本号为：${{ env.VERSION }}"
+        shell: bash
+      - name: 上传发行版
         if: ${{ env.CHECK_REPEATED }} = "No"
         uses: ncipollo/release-action@v1
         with:
-          name: ${{ steps.version_info.outputs.build_version }}
-          artifacts: "release_output/*.tar.gz,release_output/*.zip"
-          tag: ${{ steps.version_info.outputs.build_version }}
-          body: "你也可以在[阿里云盘](https://pan.yidaozhan.gq/ns_emu_helper/RyujinxCNBuilds/)下载。 [更新日志](https://github.com/Ryujinx/Ryujinx/wiki/Changelog)"
+          name: ${{ env.VERSION }}
+          artifacts: "*.tar.gz,*.zip"
+          tag: ${{ env.VERSION }}
+          body: "你也可以在[阿里云盘](https://pan.yidaozhan.ga/ns_emu_helper/RyujinxCNBuilds/)下载。 [查看更新日志](https://github.com/Ryujinx/Ryujinx/wiki/Changelog)"
           allowUpdates: true
           removeArtifacts: false
           replacesArtifacts: false
           owner: ${{ env.RYUJINX_TARGET_RELEASE_CHANNEL_OWNER }}
           repo: ${{ env.RYUJINX_TARGET_RELEASE_CHANNEL_REPO }}
           token: ${{ secrets.RELEASE_TOKEN }} 
-          
-      - name: Upload to Aliyundrive
+      - name: 上传阿里云盘
         if: ${{ env.CHECK_REPEATED }} = "No"
         env:
           refreshtoken: ${{secrets.REFRESH_TOKEN}}
         run: |
-          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./release_output/ryujinx-cn-${{ env.VERSION }}-win_x64.zip NSEmuHelper/RyujinxCNBuilds
-          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./release_output/ryujinx-cn-${{ env.VERSION }}-linux_x64.tar.gz NSEmuHelper/RyujinxCNBuilds      
+          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./ryujinx-cn-${{ env.VERSION }}-win_x64.zip NSEmuHelper/RyujinxCNBuilds
+          aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./ryujinx-cn-${{ env.VERSION }}-linux_x64.tar.gz NSEmuHelper/RyujinxCNBuilds
         shell: bash
