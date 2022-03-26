@@ -129,6 +129,16 @@ jobs:
           echo "VERSION=$(cat exported_variables.txt)" >> $GITHUB_ENV
           echo "导入的版本号为：${{ env.VERSION }}"
         shell: bash
+      - name: 给 Windows 版添加图标
+        run: |
+          wget "https://raw.githubusercontent.com/YidaozhanYa/RyujinxCN/main/Windows/RCEDIT64.exe"
+          wget "https://raw.githubusercontent.com/YidaozhanYa/RyujinxCN/main/Windows/Ryujinx.ico"
+          mkdir publish
+          7z e .\ryujinx-cn-${{ env.VERSION }}-win_x64.zip -opublish publish\Ryujinx.exe
+          .\RCEDIT64.exe /I pubilsh\Ryujinx.exe Ryujinx.ico
+          7z a .\ryujinx-cn-${{ env.VERSION }}-win_x64.zip publish\Ryujinx.exe
+          rm RCEDIT64.exe
+          rm Ryujinx.ico
       - name: 上传发行版
         if: ${{ env.CHECK_REPEATED }} = "No"
         uses: ncipollo/release-action@v1

@@ -95,7 +95,7 @@ jobs:
       - name: 上传工件以供添加图标
         uses: actions/upload-artifact@v3
         with:
-          name: built-ryujinx
+          name: built-ryujinx-vulkan
           path: |
             release_output/ryujinx-cn-vulkan-${{ steps.version_info.outputs.build_version }}-win_x64.zip
             release_output/exported_variables.txt
@@ -111,12 +111,22 @@ jobs:
       - name: 下载工件
         uses: actions/download-artifact@v3
         with:
-          name: built-ryujinx
+          name: built-ryujinx-vulkan
       - name: 导入环境变量
         run: |
           echo "VERSION=$(cat exported_variables.txt)" >> $GITHUB_ENV
           echo "导入的版本号为：${{ env.VERSION }}"
         shell: bash
+      - name: 给 Windows 版添加图标
+        run: |
+          wget "https://raw.githubusercontent.com/YidaozhanYa/RyujinxCN/main/Windows/RCEDIT64.exe"
+          wget "https://raw.githubusercontent.com/YidaozhanYa/RyujinxCN/main/Windows/Ryujinx.ico"
+          mkdir publish
+          7z e .\ryujinx-cn-vulkan-${{ env.VERSION }}-win_x64.zip -opublish publish\Ryujinx.exe
+          .\RCEDIT64.exe /I pubilsh\Ryujinx.exe Ryujinx.ico
+          7z a .\ryujinx-cn-vulkan-${{ env.VERSION }}-win_x64.zip publish\Ryujinx.exe
+          rm RCEDIT64.exe
+          rm Ryujinx.ico
       - name: 上传发行版
         if: ${{ env.CHECK_REPEATED }} = "No"
         uses: ncipollo/release-action@v1
