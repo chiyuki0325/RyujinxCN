@@ -134,7 +134,7 @@ jobs:
           Invoke-WebRequest -Uri "https://raw.githubusercontent.com/YidaozhanYa/RyujinxCN/main/Windows/Ryujinx.ico" -OutFile .\Ryujinx.ico
           mkdir publish
           7z e .\release_output\ryujinx-cn-vulkan-${{ env.VERSION }}-win_x64.zip -opublish publish\Ryujinx.exe
-          .\RCEDIT64.exe /I pubilsh\Ryujinx.exe Ryujinx.ico
+          .\RCEDIT64.exe /I publish\Ryujinx.exe Ryujinx.ico
           7z a .\release_output\ryujinx-cn-vulkan-${{ env.VERSION }}-win_x64.zip publish\Ryujinx.exe
           rm RCEDIT64.exe
           rm Ryujinx.ico
