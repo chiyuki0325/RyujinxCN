@@ -6,12 +6,12 @@ on:
     paths:
       - '**.json'
   schedule:
-    - cron: '0 0/6 * * *'
+    - cron: '0 0/12 * * *'
 
 
 jobs:
   BuildRelease:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     env:
       RYUJINX_BASE_VERSION: "1.1"
       RYUJINX_TARGET_RELEASE_CHANNEL_NAME: "main"
@@ -27,6 +27,7 @@ jobs:
            VERSION=${VERSION// /};VERSION=${VERSION//\"/};VERSION=${VERSION//tag_name:/};VERSION=${VERSION//,/}
            echo "版本号为：${VERSION}"
            echo "VERSION=${VERSION}" >> $GITHUB_ENV
+        shell: bash
       - name: Check Duplicate
         env:
           refreshtoken: ${{ secrets.REFRESH_TOKEN }}
@@ -37,6 +38,7 @@ jobs:
           CHECK_REPEATED="Yes"
           fi
           echo "CHECK_REPEATED=${CHECK_REPEATED}" >> $GITHUB_ENV
+        shell: bash
       - uses: actions/setup-dotnet@v1
         if: ${{ env.CHECK_REPEATED }} = "No"
         with:
@@ -50,6 +52,7 @@ jobs:
           git clone https://github.com/YidaozhanYa/RyujinxCN
           ls
           python RyujinxCN/localization.py "$(pwd)"
+        shell: bash
       - name: Ensure NuGet Source
         if: ${{ env.CHECK_REPEATED }} = "No"
         uses: fabriciomurta/ensure-nuget-source@v1
@@ -121,3 +124,4 @@ jobs:
         run: |
           aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./release_output/ryujinx-cn-${{ env.VERSION }}-win_x64.zip NSEmuHelper/RyujinxCNBuilds
           aliyunpan-cli -t ${{ env.refreshtoken }} upload -f ./release_output/ryujinx-cn-${{ env.VERSION }}-linux_x64.tar.gz NSEmuHelper/RyujinxCNBuilds      
+        shell: bash
