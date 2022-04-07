@@ -103,9 +103,9 @@ jobs:
         if: ${{ env.CHECK_REPEATED }} = "No"
         uses: ncipollo/release-action@v1
         with:
-          name: ${{ env.CHECK_VERSION }}
+          name: ${{ env.VERSION }}
           artifacts: "release_output/*.tar.gz,release_output/*.zip"
-          tag: ${{ env.CHECK_VERSION }}
+          tag: ${{ env.VERSION }}
           body: "你也可以在[阿里云盘](https://pan.yidaozhan.gq/ns_emu_helper/RyujinxCNBuilds/)下载。 [更新日志](https://github.com/Ryujinx/Ryujinx/wiki/Changelog)"
           allowUpdates: true
           removeArtifacts: false
