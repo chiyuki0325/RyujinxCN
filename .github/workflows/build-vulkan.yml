@@ -103,15 +103,15 @@ jobs:
         if: ${{ env.CHECK_REPEATED }} = "No"
         uses: ncipollo/release-action@v1
         with:
-          name: ${{ steps.version_info.outputs.build_version }}
+          name: ${{ env.VERSION }}
           artifacts: "release_output/*.tar.gz,release_output/*.zip"
-          tag: ${{ steps.version_info.outputs.build_version }}
+          tag: ${{ env.VERSION }}
           body: "你也可以在[阿里云盘](https://pan.yidaozhan.gq/ns_emu_helper/RyujinxCNBuilds/)下载。 [更新日志](https://github.com/Ryujinx/Ryujinx/wiki/Changelog)"
           allowUpdates: true
           removeArtifacts: false
           replacesArtifacts: false
-          owner: ${{ env.RYUJINX_TARGET_RELEASE_CHANNEL_OWNER }}
-          repo: ${{ env.RYUJINX_TARGET_RELEASE_CHANNEL_REPO }}
+          owner: YidaozhanYa
+          repo: RyujinxCN
           token: ${{ secrets.RELEASE_TOKEN }} 
           
       - name: Upload to Aliyundrive
