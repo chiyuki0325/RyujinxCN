@@ -115,7 +115,7 @@ jobs:
           token: ${{ secrets.RELEASE_TOKEN }} 
           
       - name: Upload to Aliyundrive
-        if: ${{ env.CHECK_REPEATED }} = "No"
+        if: ${{ env.CHECK_REPEATED == 'No' }}
         env:
           refreshtoken: ${{secrets.REFRESH_TOKEN}}
         run: |
