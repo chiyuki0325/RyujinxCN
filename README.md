@@ -11,7 +11,7 @@
 git clone https://github.com/Ryujinx/Ryujinx.git
 python3 ./localization.py Ryujinx
 cd Ryujinx
-dotnet build -c Release -o build
+dotnet publish -c Release -p:DebugType=embedded Ryujinx --self-contained true
 ```
 
 Arch Linux 用户可以直接使用 PKGBUILD
