@@ -16,6 +16,7 @@ source=(
 	"ryujinx.install")
 md5sums=(
 	'SKIP'
+	'SKIP'
 	'2a3637d0d4e7678473a9bd87f6acc8aa')
 options=(!strip)
 
