@@ -11,5 +11,7 @@
 "Extraction completed successfully.":"解包完成。",
 "Warning":"警告",
 "You are about to delete the PPTC cache for :\\n\\n<b>{_titleName}</b>\\n\\nAre you sure you want to proceed?":"将要删除游戏的 PPTC 缓存:\\n\\n<b>{_titleName}</b>\\n\\n真的要删除吗？",
-"You are about to delete the shader cache for :\\n\\n<b>{_titleName}</b>\\n\\nAre you sure you want to proceed?":"将要删除游戏的着色器缓存:\\n\\n<b>{_titleName}</b>\\n\\n真的要删除吗？"
+"You are about to delete the shader cache for :\\n\\n<b>{_titleName}</b>\\n\\nAre you sure you want to proceed?":"将要删除游戏的着色器缓存:\\n\\n<b>{_titleName}</b>\\n\\n真的要删除吗？",
+"There was an error creating the specified savedata: {result.ToStringWithName()}":"创建存档时发生错误: {result.ToStringWithName()}",
+"There was an error finding the specified savedata: {result.ToStringWithName()}":"寻找存档时发生错误: {result.ToStringWithName()}"
 }

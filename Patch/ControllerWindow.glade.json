@@ -49,5 +49,7 @@
 "Server Port":"体感服务器端口",
 "Gyro Deadzone":"体感死区",
 "Save":"保存",
-"Close":"退出"
+"Close":"退出",
+"The controller's type":"手柄类型",
+"Rotate 90° Clockwise":"顺时针旋转 90°"
 }

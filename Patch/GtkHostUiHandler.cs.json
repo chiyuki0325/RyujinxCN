@@ -1,4 +1,10 @@
 {
 "Software Keyboard":"软件键盘",
-"Controller Applet":"手柄选择"
+"Controller Applet":"手柄选择",
+"exactly {args.PlayerCountMin}":"恰好 {args.PlayerCountMin}",
+"Application requests <b>{playerCount}</b> player(s) with:\\n\\n":"正在运行的软件要求 <b>{playerCount}</b> 名玩家:\\n\\n",
+"<tt><b>TYPES:</b> {args.SupportedStyles}</tt>\\n\\n":"<tt><b>类型:</b> {args.SupportedStyles}</tt>\\n\\n",
+"<tt><b>PLAYERS:</b> {string.Join(\", \", args.SupportedPlayers)}</tt>\\n\\n":"<tt><b>玩家:</b> {string.Join(\", \", args.SupportedPlayers)}</tt>\\n\\n",
+"Docked mode set. <tt>Handheld</tt> is also invalid.\\n\\n":"主机模式已开启，<tt>掌机模式</tt>无效。\\n\\n",
+"<i>Please reconfigure Input now and then press OK.</i>":"<i>现在请重新配置控制设置，之后按下 OK。</i>"
 }

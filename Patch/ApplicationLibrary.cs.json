@@ -1,7 +1,9 @@
 {
-"{seconds}s":"{seconds}秒",
-"{Math.Round(seconds / secondsPerMinute, 2, MidpointRounding.AwayFromZero)} mins":"{Math.Round(seconds / secondsPerMinute, 2, MidpointRounding.AwayFromZero)} 分钟",
-"{Math.Round(seconds / secondsPerHour, 2, MidpointRounding.AwayFromZero)} hrs":"{Math.Round(seconds / secondsPerHour, 2, MidpointRounding.AwayFromZero)} 小时",
+"{seconds} seconds":"{seconds}秒",
+"{Math.Round(seconds / secondsPerMinute, 0, MidpointRounding.AwayFromZero)} minutes":"{Math.Round(seconds / secondsPerMinute, 2, MidpointRounding.AwayFromZero)} 分钟",
+"{Math.Round(seconds / secondsPerHour, 2, MidpointRounding.AwayFromZero)} hours":"{Math.Round(seconds / secondsPerHour, 2, MidpointRounding.AwayFromZero)} 小时",
 "{Math.Round(seconds / secondsPerDay, 2, MidpointRounding.AwayFromZero)} days":"{Math.Round(seconds / secondsPerDay, 2, MidpointRounding.AwayFromZero)} 天",
-"Never":"没玩过"
+"Never":"没玩过",
+"Unknown":"未知",
+"Last played datetime \\\"{appMetadata.LastPlayed}\\\" is invalid for current system culture, skipping (did current culture change?)":"上次游玩时间 \\\"{appMetadata.LastPlayed}\\\" 无效，是否刚从原版切换到汉化版？"
 }

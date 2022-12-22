@@ -1,16 +1,17 @@
 {
 "Open the Setup Guide":"打开配置指南",
 "Ryujinx error ({errorCode})":"Ryujinx 错误 ({errorCode})",
-"\\n<b>For more information on how to fix this error, follow our Setup Guide.</b>":"\\n<b>如果想知道如何解决这个错误，可以看看配置指南。</b>",
-"RYU-{(uint)error:X4}":"错误代码-{(uint)error:X4}",
+"\\n<b>For more information on how to fix this error, follow our Setup Guide.</b>":"\\n<b>如果想知道如何解决这个错误，请遵循配置指南。</b>",
 "Keys not found":"未找到密钥",
 "Firmware not found":"未找到固件",
 "Firmware parsing error":"固件解码失败",
+"Application not found":"未找到应用程序",
 "Unknown error":"未知错误",
 "Undefined error":"未定义错误",
 "Ryujinx was unable to find your 'prod.keys' file":"Ryujinx 未找到密钥 'prod.keys' 文件。",
 "Ryujinx was unable to find any firmwares installed":"Ryujinx 未安装固件。",
-"Ryujinx was unable to parse the provided firmware. This is usually caused by outdated keys.":"Ryujinx 不能解码你的固件，可能是因为固件的版本比密钥新。",
+"Ryujinx was unable to parse the provided firmware. This is usually caused by outdated keys.":"Ryujinx 不能解码你的固件，通常是因为固件的版本比密钥新。",
+"Ryujinx couldn't find a valid application at the given path.":"Ryujinx 在给定位置中没有找到有效的应用程序。",
 "An unknown error occured!":"发生了未知错误！",
 "An undefined error occured! This shouldn't happen, please contact a dev!":"发生了未知错误！这个错误不应该发生，请迅速联系开发者！"
 }

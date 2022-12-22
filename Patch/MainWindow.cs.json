@@ -31,5 +31,7 @@
  "Installing firmware...":"正在安装固件 ...",
  "System version {firmwareVersion.VersionString} successfully installed.":"固件 {firmwareVersion.VersionString} 安装完成。",
  "The game is currently not ready to receive Amiibo scan data. Ensure that you have an Amiibo-compatible game open and ready to receive Amiibo scan data.":"当前的游戏未在扫描 Amiibo 状态，请确认该游戏支持 Amiibo，并且进入了扫描 Amiibo 状态。",
- "{args.NumAppsLoaded}/{args.NumAppsFound} Games Loaded":"{args.NumAppsLoaded}/{args.NumAppsFound} 个游戏已加载"
+ "{args.NumAppsLoaded}/{args.NumAppsFound} Games Loaded":"{args.NumAppsLoaded}/{args.NumAppsFound} 个游戏已加载",
+"Installing firmware {firmwareVersion.VersionString}":"正在安装固件 {firmwareVersion.VersionString}",
+"System version {firmwareVersion.VersionString} successfully installed.":"固件版本 {firmwareVersion.VersionString} 安装完毕。"
  }

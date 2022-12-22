@@ -5,7 +5,8 @@
 "Choose the game directory to add to the list":"选择要添加到列表中的游戏目录",
 "Add":"添加",
 "Cancel":"取消",
-"Choose the theme to load":"选择要更换的 GTK 主题",
+"Choose the theme to load":"选择要更换的主题文件",
 "Select":"选择",
-"Theme Files":"GTK 主题"
+"Theme Files":"主题文件",
+" (dGPU)":" (独立显卡)"
 }
