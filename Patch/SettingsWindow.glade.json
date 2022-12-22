@@ -1,4 +1,4 @@
-{
+GT{
 "Ryujinx - Settings":"Ryujinx - 设置",
 "General":"通用",
 "Input":"控制",
@@ -13,7 +13,7 @@
 "Add":"添加",
 "Remove":"移除",
 "Themes":"主题",
-"Use Custom Theme":"使用自定义 GTK 主题",
+"Use Custom Theme":"使用自定义主题",
 "Custom Theme Path:":"自定义主题路径:",
 "Browse...":"浏览 ...",
 "Enable Docked Mode":"启用主机模式",
