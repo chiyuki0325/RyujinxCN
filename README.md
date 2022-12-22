@@ -14,3 +14,4 @@ cd Ryujinx
 dotnet build -c Release -o build
 ```
 
+Arch Linux 用户可以直接使用 PKGBUILD
