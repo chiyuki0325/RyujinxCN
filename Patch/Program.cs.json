@@ -1,0 +1,15 @@
+{
+"You are running an outdated version of Windows.\\n\\nStarting on June 1st 2022, Ryujinx will only support Windows 10 1803 and newer.\\n":"你正在使用旧版 Windows。\\n\\n从 2022.6.1 开始，Ryujinx 只支持 Windows 10 1803 及更新版本。",
+"Yes (Vulkan)":"是 (Vulkan)",
+"No (OpenGL)":"否 (OpenGL)",
+"Ryujinx - Default graphics backend":"Ryujinx - 默认图形渲染器",
+"Use Vulkan as default graphics backend?":"是否使用 Vulkan 作为默认图形渲染器？",
+"Ryujinx now supports the Vulkan API. ":"Ryujinx 现在支持了 Vulkan 图形渲染器。",
+"Vulkan greatly improves shader compilation performance, ":               "Vulkan 极大地提升了着色器编译性能，并且",
+"and fixes some graphical glitches; however, since it is a new feature, ":"修复了一些画面问题。但因为它是一项新特性，",
+"you may experience some issues that did not occur with OpenGL.\\n\\n":                   "你可能会遇到 OpenGL 中没有的错误和 bug。\\n\\n",
+"Note that you will also lose any existing shader cache the first time you start a game ":                                                 "注意，你之前留下的着色器缓存都会被删除，",
+"on version 1.1.200 onwards, because Vulkan required changes to the shader cache that makes it incompatible with previous versions.\n\\\n":"因为 Vulkan 的着色器缓存和 OpenGL 不兼容。",
+"Would you like to set Vulkan as the default graphics backend? ":"你是否想把 Vulkan 设为默认图形渲染器？",
+"You can change this at any time on the settings window.":"之后可以随时在设置窗口中更改。"
+}
