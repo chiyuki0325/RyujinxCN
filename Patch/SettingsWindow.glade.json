@@ -50,7 +50,7 @@
 "Host unchecked (fastest, unsafe)":"忽略检查的主机 (最快但不稳定)",
 "Host Unchecked (fastest, unsafe)":"忽略检查的主机 (最快但不稳定)",
 "Hacks":"修正",
-" (may cause instability)":"可能导致不稳定",
+" (may cause instability)":" (可能导致不稳定)",
 "Use alternative memory layout (Developers)":"使用替选内存布局 (开发者)",
 "Off":"关","On":"开",
 "Preferred GPU:":"首选显卡",
